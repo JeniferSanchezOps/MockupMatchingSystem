@@ -1,6 +1,6 @@
 Ejericio emparejador 
 
-copia y pega 
+copia y pega en la consola: gh repo clone JeniferSanchezOps/MockupMatchingSystem
 
 emparejamientoDraft.py es para dar una idea de como deberia funcionar en la vida real 
 
