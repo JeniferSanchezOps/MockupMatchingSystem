@@ -8,7 +8,7 @@ class OrderMatchingSystemMock:
             {"id": 1, "tipo": "venta", "activo_id": "AAPL", "precio": 150},
             {"id": 2, "tipo": "compra", "activo_id": "AAPL", "precio": 150},
             {"id": 3, "tipo": "venta", "activo_id": "TSLA", "precio": 600},
-            {"id": 4, "tipo": "compra", "activo_id": "TSLA", "precio": 600},
+            {"id": 4, "tipo": "compra", "activo_id": "TSLA", "precio": 500},
         ]
         self.matches = []  # Lista para guardar los emparejamientos
         self.run_matcher()
@@ -43,11 +43,18 @@ class OrderMatchingSystemMock:
         self.matches.append(match)
         print(f"Match registrado: Compra {compra['id']} con Venta {venta['id']} para {compra['activo_id']} a {compra['precio']}")
 
-    def run_matcher(self):
-        """Ejecuta el emparejamiento una sola vez."""
-        print("Ejecutando emparejamiento...")
-        self.Emparejamiento()
+    def start_matcher(self):
+        """Inicia el emparejamiento en un hilo separado."""
 
+        def run():
+            while True:
+                print("Ejecutando emparejamiento...")
+                self.Emparejamiento()
+                time.sleep(self.interval)
+
+        thread = threading.Thread(target=run, daemon=True)
+        thread.start()
+        
 # Ejemplo de ejecución
 if __name__ == "__main__":
     matching_system = OrderMatchingSystemMock()
